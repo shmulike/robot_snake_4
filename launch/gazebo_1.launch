@@ -1,0 +1,68 @@
+<launch>
+
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="model" default="$(find robot_snake_1/urdf/snake_10.xacro"/>
+
+  <!-- Launch Gazebo  -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>   
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robot_snake_1)/urdf/snake_10.xacro'" /> 
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find robot_snake_1)/config/control.yaml" command="load"/>
+
+ <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model snake_10 -param robot_description"/> 
+  
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+	respawn="true" output="screen">
+    <remap from="/joint_states" to="/robot_snake_sim/joint_states" />
+  </node>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/snake_10" args="
+            linear_position_controller
+			joint1_position_controller
+			joint2_position_controller
+			joint3_position_controller
+			joint4_position_controller
+			joint5_position_controller
+			joint6_position_controller
+			joint7_position_controller
+			joint8_position_controller
+            joint9_position_controller
+            joint10_position_controller"/>
+
+  
+   <!-- joy node -->
+  <node respawn="true" pkg="joy" type="joy_node" name="turtle_joy" >
+        <param name="dev" type="string" value="/dev/input/js0" />
+        <param name="deadzone" value="0.12" />
+        <param name="autorepeat_rate" value="100" />
+  </node>
+  
+  <!--
+  <node respawn="true" pkg="robot_snake_1" name="joy_listener" type="joy_listener.py"/>
+  -->
+
+  <node respawn="true" pkg="robot_snake_1" name="joint_CMD_test_2" type="joint_CMD_test_2.py" output="screen"/>
+
+  <!--
+    <node name="control" pkg="robot_snake_1" type="control.py"
+	 output="screen">
+  </node>
+  -->
+
+</launch>
