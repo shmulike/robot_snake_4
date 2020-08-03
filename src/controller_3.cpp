@@ -33,7 +33,7 @@
 #define Kd_tension 0      
 #define Ki_tension 1       //1
 #define eps_tension 0.03
-#define MAX_PWM_tension 100                     // 255
+#define MAX_PWM_tension 60                     // 255
 
 #define Ki_limit 800
 //-----------------------------------------------------------
@@ -47,17 +47,18 @@
 
 
 
-float Kp_angle[N_links]={25,20,15,15};
-float Ki_angle[N_links]={0.1 ,0.05 ,0.05 ,0.020 };
+float Kp_angle[N_links]={25,20,15,20};
+float Ki_angle[N_links]={0.1 ,0.05 ,0.05 ,0.05 };
 float Kd_angle[N_links]={2,2,2,2};
 
-float MAX_PWM_angle[N_links]={110,100,90,70};
+float MAX_PWM_angle[N_links]={110,100,90,180};
 
 //float MAX_PWM_tension[N_links]={110,80,80,80};
 
 
 //double string_tension[N_links]={1,1.5,1.2,1.8};
-double string_tension[N_links]={2.5,4.5,3.7,5};
+//double string_tension[N_links]={2.5,4.5,3.7,5.5};
+double string_tension[N_links]={2, 2, 2, 2};
 
 
 double joint_error[N_links] = {0}, joint_error_sum[N_links] = {0}, joint_previous_error[N_links] = {0};
@@ -204,7 +205,7 @@ int main(int argc, char **argv)
                 
                 // ---------- End check limits
                 
-               ROS_INFO("Joint #%d:\tPos/cmd= %.3f/%.1f;\tPWM=[%d,%d];\tT1= %.2f;\tT2= %.2f\tE_sum=%.4f\tkP=%.4f\tE_sum=%.4f\tkP=%.4f",joint_i, joint_val[joint_i],joint_cmd[joint_i], motor_cmd[0][joint_i], motor_cmd[1][joint_i], tension_val[0][joint_i], tension_val[1][joint_i],joint_error_sum[joint_i],joint_error[joint_i]*Kp_angle[joint_i],tension_error[1][joint_i]*Kp_tension , tension_error_sum[1][joint_i]);
+               ROS_INFO("Joint #%d:\tPos/cmd= %.3f/%.1f;\tPWM=[%d,%d];\tT1= %.2f;\tT2= %.2f\tE_sum=%.2f\tkP=%.2f\tE_sum=%.2f\tkP=%.2f",joint_i, joint_val[joint_i],joint_cmd[joint_i], motor_cmd[0][joint_i], motor_cmd[1][joint_i], tension_val[0][joint_i], tension_val[1][joint_i],joint_error_sum[joint_i],joint_error[joint_i]*Kp_angle[joint_i],tension_error[1][joint_i]*Kp_tension , tension_error_sum[1][joint_i]);
             } // End of links loop
             ROS_INFO("--------------------");
 

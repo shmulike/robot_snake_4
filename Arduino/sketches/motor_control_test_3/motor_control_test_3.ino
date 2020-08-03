@@ -8,8 +8,11 @@ void set_motor_pwm(const std_msgs::Int32MultiArray& msg);
 ros::NodeHandle nh;
 ros::Subscriber<std_msgs::Int32MultiArray> sub("/robot_snake_1/motor_cmd", &set_motor_pwm);
 
-byte motors_PWM_pin[8] = {3,4,5,6,23,22,21,20};
-byte motors_DIR_pin[8] = {7,8,9,10,19,18,17,16};
+//byte motors_PWM_pin[8] = {3, 4, 5, 6,  23, 22, 21, 20};
+//byte motors_DIR_pin[8] = {7, 8, 9, 10, 19, 18, 17, 16};
+
+byte motors_PWM_pin[8] = {3, 4, 23, 22, 5, 6,  21, 20};
+byte motors_DIR_pin[8] = {7, 8, 19, 18, 9, 10, 17, 16};
 
 //-------------------- Setup function
 void setup() {
@@ -36,10 +39,13 @@ void set_motor_pwm(const std_msgs::Int32MultiArray& msg){
   bool motor_dir = 0;
   for (int i=0; i<N_links*2; i++){
     motor_pwm = msg.data[i];
+    motor_dir = (motor_pwm>0)? 1 : 0;
+    /*
     if (motor_pwm>0)
       motor_dir = 1;
     else
       motor_dir = 0;
+      */
     digitalWrite(motors_DIR_pin[i], motor_dir);
     analogWrite(motors_PWM_pin[i],  abs(motor_pwm));
   }
