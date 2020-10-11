@@ -45,13 +45,11 @@
 // -------------------- Global variables --------------------
 
 
-
-
 float Kp_angle[N_links]={25,20,15,20};
 float Ki_angle[N_links]={0.1 ,0.05 ,0.05 ,0.05 };
 float Kd_angle[N_links]={2,2,2,2};
 
-float MAX_PWM_angle[N_links]={110,100,90,180};
+float MAX_PWM_angle[N_links]={110,150,90,180};
 
 //float MAX_PWM_tension[N_links]={110,80,80,80};
 
@@ -109,7 +107,7 @@ int main(int argc, char **argv)
     ros::Subscriber sub_3 = n.subscribe("/robot_snake_1/linear_val",    1000, get_linear_val);
     ros::Subscriber sub_4 = n.subscribe("/robot_snake_1/linear_cmd",    1000, get_linear_cmd);
     ros::Subscriber sub_5 = n.subscribe("/robot_snake_1/tension_val",   1000, get_tension_val);
-    ros::Rate loop_rate(100);
+    ros::Rate loop_rate(200);
 
     //ROS_WARN("--> Waiting for all nodes to publish !");
     //while (!alive[0]) ROS_INFO("teensy not working %d", alive[0]);

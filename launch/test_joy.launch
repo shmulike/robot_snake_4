@@ -1,0 +1,21 @@
+<launch>
+
+<group ns="robot_snake_1">
+    <arg name="record" default="false"/>
+    <arg name="rqt" default="false"/>
+    <arg name="test2" default="false"/>
+    <arg name="joy_parallel" default="false"/>
+
+    <group if="$(arg joy_parallel)">
+        <node pkg="joy" name="joy" type="joy_node" output="screen">
+            <param name="dev" type="string" value="/dev/input/js0" />
+            <!--<param name="autorepeat_rate" value="100" /> -->
+            <param name="deadzone" value="0.12" />
+        </node>
+        <node pkg="robot_snake_1" name="joy_cmd_parallel" type="joy_cmd_parallel.py" output="screen" />
+    </group>
+
+
+</group>
+
+</launch>
