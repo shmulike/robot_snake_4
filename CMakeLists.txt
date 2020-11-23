@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(robot_snake_1)
+project(robot_snake_4)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -124,9 +124,9 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/robot_snake_1.cpp
-# )
+#add_library(${PROJECT_NAME}
+#  src/${PROJECT_NAME}/include/my_header.cpp
+#)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -142,7 +142,7 @@ include_directories(
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
-# set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
+#set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -202,18 +202,22 @@ include_directories(
 # catkin_add_nosetests(test)
 
 
-add_executable(controller_1 include/my_header.cpp src/controller_1.cpp)
-add_dependencies(controller_1 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(controller_1 ${catkin_LIBRARIES} )
+add_executable(controller_v4_1 include/my_header.cpp src/controller_1.cpp)
+add_dependencies(controller_v4_1 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(controller_v4_1 ${catkin_LIBRARIES} ${catkin_INCLUDE_DIRS})
+# set_target_properties(controller_1 PROPERTIES OUTPUT_NAME controller4_1 PREFIX "")
 
-add_executable(controller_3 include/my_header.cpp src/controller_3.cpp)
-add_dependencies(controller_3 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(controller_3 ${catkin_LIBRARIES} )
+add_executable(controller_v4_3 include/my_header.cpp src/controller_3.cpp)
+add_dependencies(controller_v4_3 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(controller_v4_3 ${catkin_LIBRARIES} )
+# set_target_properties(controller_3 PROPERTIES OUTPUT_NAME controller4_3 PREFIX "")
 
-add_executable(cmd_test_2 src/cmd_test_2.cpp)
-add_dependencies(cmd_test_2 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(cmd_test_2 ${catkin_LIBRARIES} )
+add_executable(cmd_test_v4_2 src/cmd_test_2.cpp)
+add_dependencies(cmd_test_v4_2 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(cmd_test_v4_2 ${catkin_LIBRARIES} )
+# set_target_properties(cmd_test_v4_2 PROPERTIES OUTPUT_NAME cmd4_test_2 PREFIX "")
 
-add_executable(joint_cmd_tester src/joint_cmd_tester.cpp)
-add_dependencies(joint_cmd_tester ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(joint_cmd_tester ${catkin_LIBRARIES} )
+add_executable(joint_cmd_v4_tester src/joint_cmd_tester.cpp)
+add_dependencies(joint_cmd_v4_tester ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(joint_cmd_v4_tester ${catkin_LIBRARIES} )
+# set_target_properties(joint_cmd_v4_tester PROPERTIES OUTPUT_NAME joint_cmd4_tester PREFIX "")

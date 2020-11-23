@@ -15,7 +15,7 @@
 #define sinAmp1 25
 #define N_links 4
 #define PI 3.14159265
-#define step 10000.0
+#define step 8000.0
 #define step_factor 6.0
 
 // -------------------- Global variables --------------------
@@ -69,7 +69,7 @@ int main(int argc, char **argv)
     pub_1.publish(joint_cmd_array);
     ros::spinOnce();
     loop_rate.sleep();
-    ros::Duration(20, 0).sleep();
+    ros::Duration(5, 0).sleep();
     ROS_WARN("\tStarting");
 
     while (ros::ok())

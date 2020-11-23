@@ -1,6 +1,6 @@
 <launch>
 
-<group ns="robot_snake_1">
+<group ns="robot_snake_4">
     <arg name="record" default="false"/>
     <arg name="rqt" default="false"/>
     <arg name="test2" default="false"/>
@@ -33,11 +33,11 @@
     </node>
     -->
 
-    <node pkg="robot_snake_1" name="controller" type="controller_3" output="screen"/>
+    <node pkg="robot_snake_1" name="controller" type="controller_v4_3" output="screen"/>
 
     <!-- command that generates circular pattern -->
     <group if="$(arg test2)">
-        <node pkg="robot_snake_1" name="cmd_test_2" type="cmd_test_2" output="screen"/>
+        <node pkg="robot_snake_1" name="cmd_test_2" type="cmd_test_v4_2" output="screen"/>
     </group>
 
     <group if="$(arg joy_parallel)">
@@ -59,7 +59,7 @@
 
     <group if="$(arg record)">
         <!-- stuff that will only be evaluated if foo is true -->
-        <node pkg="rosbag" type="record" name="my_rosbag" output="screen" args="-a -o $(find robot_snake_1)/bags/"/>
+        <node pkg="rosbag" type="record" name="my_rosbag" output="screen" args="-a -o $(find robot_snake_4)/bags/"/>
     </group>
 
     <!--
